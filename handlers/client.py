@@ -161,7 +161,10 @@ async def yt_finish(message: types.Message, state: FSMContext):
                 await message.answer('Ошибка скачивания, повторите позже', reply_markup=cl_kb.choice_service)
                 await db.update_status_download(message.from_user.id, 'inactive')
                 await state.finish()
-                await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                try:
+                    await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                except:
+                    pass
         else:
             await message.answer('Неверное качество', reply_markup=cl_kb.choice_service)
             await db.update_status_download(message.from_user.id, 'inactive')
@@ -187,7 +190,11 @@ async def get_and_send_video(message: types.Message):
                 global progress_bar
                 global stick_mes
                 if int(prefix) == 1:
-                    await bot.delete_message(tgid, collapse_mes_stick.message_id)
+                    
+                    try:
+                        await bot.delete_message(tgid, collapse_mes_stick.message_id)
+                    except:
+                        pass
                     progress_bar = await bot.send_message(tgid, '<b>Прогресс скачивания</b>\n'
                                                                 f'◻◻◻{prefix}/{dwn.get_count_url(tgid)}◻◻◻',
                                                                 parse_mode='HTML')
@@ -207,14 +214,20 @@ async def get_and_send_video(message: types.Message):
                                                  f'{prefix}/{prefix}',
                                                   parse_mode='HTML', reply_markup=cl_kb.choice_service)
                     await db.update_status_download(tgid, 'inactive')
-                    await bot.delete_message(tgid, progress_bar.message_id)
-                    await bot.delete_message(tgid, stick_mes.message_id)
+                    try:
+                        await bot.delete_message(tgid, progress_bar.message_id)
+                        await bot.delete_message(tgid, stick_mes.message_id)
+                    except:
+                        pass
                 os.remove(str(Path(str(Path.cwd()), 'yt', f'{message.caption}.mp4')))
             else:
                 await bot.send_message(tgid, '<b>Скачивание завершено</b>', reply_markup=cl_kb.choice_service, parse_mode='HTML')
                 await bot.send_video(tgid, file_id)
                 await db.update_status_download(tgid, 'inactive')
-                await bot.delete_message(tgid, collapse_mes_stick_lnk.message_id)
+                try:
+                    await bot.delete_message(tgid, collapse_mes_stick_lnk.message_id)
+                except:
+                    pass
                 if os.path.exists(str(Path(str(Path.cwd()), 'yt', f'{tgid}_lnk.mp4'))):
                     os.remove(str(Path(str(Path.cwd()), 'yt', f'{tgid}_lnk.mp4')))
     else:
@@ -282,7 +295,10 @@ async def yt_link_finish(message: types.Message, state: FSMContext):
             else:
                 await db.update_status_download(message.from_user.id, 'inactive')
                 await state.finish()
-                await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                try:
+                    await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                except:
+                    pass
                 await message.answer('<b>Ошибка при скачивании</b>', reply_markup=cl_kb.choice_service, parse_mode='HTML')
     else:
         if message.text == 'MP3':
@@ -305,7 +321,10 @@ async def yt_link_finish(message: types.Message, state: FSMContext):
                 else:
                     await db.update_status_download(message.from_user.id, 'inactive')
                     await state.finish()
-                    await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                    try:
+                        await bot.delete_message(message.from_user.id, collapse_mes_stick.message_id)
+                    except:
+                        pass
                     await message.answer('<b>Ошибка при скачивании</b>', reply_markup=cl_kb.choice_service,
                                          parse_mode='HTML')
                 await dwn.clear_exodus_dwn()

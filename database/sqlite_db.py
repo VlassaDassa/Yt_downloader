@@ -36,3 +36,11 @@ class Database:
         with self.connection:
             self.cursor.execute('UPDATE `count_file` SET count=? WHERE tgid=?', (count, tgid, ))
 
+
+# count_file
+# - count
+# - tgid
+
+# status_download
+# - tgid
+# - status

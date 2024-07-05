@@ -13,3 +13,5 @@ storage = MemoryStorage()
 
 bot = Bot(token=os.getenv('TOKEN'))
 dp = Dispatcher(bot, storage=MemoryStorage())
+
+
