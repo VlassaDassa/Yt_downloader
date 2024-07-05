@@ -18,3 +18,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+# Telethon
+# env
+# enter code
+# ffmpeg
