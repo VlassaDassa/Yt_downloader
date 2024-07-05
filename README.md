@@ -5,3 +5,5 @@
 
 
 https://my.telegram.org/apps
+
+https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/
